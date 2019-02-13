@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Exec_DBE_DirectoryModelStoreContainer" CdmEntityContainer="Exec_DBE_DirectoryEntities">
+    <EntitySetMapping Name="CompanyItemCodes">
+      <EntityTypeMapping TypeName="IsTypeOf(Exec_DBE_DirectoryModel.CompanyItemCode)">
+        <MappingFragment StoreEntitySet="CompanyItemCodes">
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="ItemCode" ColumnName="ItemCode" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemCodes">
+      <EntityTypeMapping TypeName="IsTypeOf(Exec_DBE_DirectoryModel.ItemCode)">
+        <MappingFragment StoreEntitySet="ItemCodes">
+          <ScalarProperty Name="ItemCode11" ColumnName="ItemCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NAICSCodes">
+      <EntityTypeMapping TypeName="IsTypeOf(Exec_DBE_DirectoryModel.NAICSCode)">
+        <MappingFragment StoreEntitySet="NAICSCodes">
+          <ScalarProperty Name="NAICSCode11" ColumnName="NAICSCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CompanyNAICSCodes" TypeName="Exec_DBE_DirectoryModel.CompanyNAICSCodes" StoreEntitySet="CompanyNAICSCodes" />
+    <EntitySetMapping Name="DBECompany1">
+      <EntityTypeMapping TypeName="Exec_DBE_DirectoryModel.DBECompany1">
+        <MappingFragment StoreEntitySet="DBECompany">
+          <ScalarProperty Name="DecertReason" ColumnName="DecertReason" />
+          <ScalarProperty Name="DecertificationDate" ColumnName="DecertificationDate" />
+          <ScalarProperty Name="CertificationDate" ColumnName="CertificationDate" />
+          <ScalarProperty Name="Certified" ColumnName="Certified" />
+          <ScalarProperty Name="MBE" ColumnName="MBE" />
+          <ScalarProperty Name="SBP" ColumnName="SBP" />
+          <ScalarProperty Name="ACDBE" ColumnName="ACDBE" />
+          <ScalarProperty Name="DBE" ColumnName="DBE" />
+          <ScalarProperty Name="District" ColumnName="District" />
+          <ScalarProperty Name="AltFax" ColumnName="AltFax" />
+          <ScalarProperty Name="Fax" ColumnName="Fax" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Zip" ColumnName="Zip" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="AltEmail" ColumnName="AltEmail" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+          <ScalarProperty Name="OwnersLastName" ColumnName="OwnersLastName" />
+          <ScalarProperty Name="OwnersFirstName" ColumnName="OwnersFirstName" />
+          <ScalarProperty Name="DBAName" ColumnName="DBAName" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="CompanyId" ColumnName="CompanyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="CompanyNAICSCodes1" TypeName="Exec_DBE_DirectoryModel.CompanyNAICSCodes1" StoreEntitySet="CompanyNAICSCodes">
+      <EndProperty Name="NAICSCode">
+        <ScalarProperty Name="NAICSCode11" ColumnName="NAICSCode" />
+      </EndProperty>
+      <EndProperty Name="DBECompany1">
+        <ScalarProperty Name="CompanyId" ColumnName="Companyid" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
