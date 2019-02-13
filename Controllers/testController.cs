@@ -14,7 +14,7 @@ namespace DBE.Controllers
     public class testController : Controller
     {
 
-        private Exec_DBE_DirectoryEntities1 db = new Exec_DBE_DirectoryEntities1();
+        private Exec_DBE_DirectoryEntities1 db = new Exec_DBE_DirectoryEntities();
 
         public ActionResult company(int? companyid)
         {

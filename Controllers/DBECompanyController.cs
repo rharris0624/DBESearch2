@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using DBESearch.Models;
 //using AHTD.Linq;
 using DBESearch.ViewModels;
-
+using DBESearch.Models;
 using System.Data;
 using System.Data.Entity;
 
@@ -14,7 +14,7 @@ namespace DBESearch.Controllers
 {
     public class DBECompanyController : Controller
     {
-        private Exec_DBE_DirectoryEntities1 db = new Exec_DBE_DirectoryEntities1();
+        private Exec_DBE_DirectoryEntities1 db = new Exec_DBE_DirectoryEntities();
         // GET: DBECompany
         public ActionResult Index()
         {

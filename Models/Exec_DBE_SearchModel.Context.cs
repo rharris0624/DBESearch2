@@ -13,10 +13,10 @@ namespace DBESearch.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Exec_DBE_DirectoryEntities1 : DbContext
+    public partial class Exec_DBE_DirectoryEntities : DbContext
     {
-        public Exec_DBE_DirectoryEntities1()
-            : base("name=Exec_DBE_DirectoryEntities1")
+        public Exec_DBE_DirectoryEntities()
+            : base("name=Exec_DBE_DirectoryEntities")
         {
         }
     

@@ -248,7 +248,7 @@ warning 6013: The table/view 'Exec_DBE_Directory.dbo.Referrals' does not have a 
           <End Role="DBECompany" Type="Self.DBECompany" Multiplicity="*" />
           <End Role="NAICSCodes" Type="Self.NAICSCode" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="Exec_DBE_DirectoryEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Exec_DBE_DirectoryEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CompanyItemCodes" EntityType="Self.CompanyItemCode" />
           <EntitySet Name="DBECompanies" EntityType="Self.DBECompany" />
           <EntitySet Name="ItemCodes" EntityType="Self.ItemCode" />
@@ -271,7 +271,7 @@ warning 6013: The table/view 'Exec_DBE_Directory.dbo.Referrals' does not have a 
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Exec_DBE_DirectoryModelStoreContainer" CdmEntityContainer="Exec_DBE_DirectoryEntities1">
+        <EntityContainerMapping StorageEntityContainer="Exec_DBE_DirectoryModelStoreContainer" CdmEntityContainer="Exec_DBE_DirectoryEntities">
           <EntitySetMapping Name="CompanyItemCodes">
             <EntityTypeMapping TypeName="Exec_DBE_DirectoryModel.CompanyItemCode">
               <MappingFragment StoreEntitySet="CompanyItemCodes">
@@ -355,16 +355,6 @@ warning 6013: The table/view 'Exec_DBE_Directory.dbo.Referrals' does not have a 
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams>
-      <Diagram DiagramId="c27970c793624f2999bde4413b8516b7" Name="Diagram1">
-        <EntityTypeShape EntityType="Exec_DBE_DirectoryModel.CompanyItemCode" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
-        <EntityTypeShape EntityType="Exec_DBE_DirectoryModel.DBECompany" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Exec_DBE_DirectoryModel.ItemCode" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Exec_DBE_DirectoryModel.NAICSCode" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
-        <AssociationConnector Association="Exec_DBE_DirectoryModel.FK_CompanyItemCodes_DBECompany" ManuallyRouted="false" />
-        <AssociationConnector Association="Exec_DBE_DirectoryModel.FK_CompanyItemCodes_ItemCodes" ManuallyRouted="false" />
-        <AssociationConnector Association="Exec_DBE_DirectoryModel.CompanyNAICSCodes" ManuallyRouted="false" />
-      </Diagram>
-    </Diagrams>
+    <Diagrams></Diagrams>
   </Designer>
 </edmx:Edmx>

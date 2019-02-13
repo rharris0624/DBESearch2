@@ -165,31 +165,31 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CompanyItemCode.cs">
-      <DependentUpon>ExecDBEEntities.tt</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DBECompany.cs">
-      <DependentUpon>ExecDBEEntities.tt</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ExecDBEEntities.Context.cs">
+    <Compile Include="Models\Exec_DBE_SearchModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ExecDBEEntities.Context.tt</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ExecDBEEntities.cs">
+    <Compile Include="Models\Exec_DBE_SearchModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>ExecDBEEntities.tt</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Exec_DBESearch_Entities.Designer.cs">
+    <Compile Include="Models\Exec_DBE_SearchModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Exec_DBESearch_Entities.edmx</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ItemCode.cs">
-      <DependentUpon>ExecDBEEntities.tt</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NAICSCode.cs">
-      <DependentUpon>ExecDBEEntities.tt</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CompanyItemCodeDesc.cs" />
@@ -293,15 +293,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\ExecDBEEntities.Context.tt">
+    <Content Include="Models\Exec_DBE_SearchModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ExecDBEEntities.Context.cs</LastGenOutput>
-      <DependentUpon>Exec_DBESearch_Entities.edmx</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.edmx</DependentUpon>
+      <LastGenOutput>Exec_DBE_SearchModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ExecDBEEntities.tt">
+    <Content Include="Models\Exec_DBE_SearchModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ExecDBEEntities.cs</LastGenOutput>
-      <DependentUpon>Exec_DBESearch_Entities.edmx</DependentUpon>
+      <DependentUpon>Exec_DBE_SearchModel.edmx</DependentUpon>
+      <LastGenOutput>Exec_DBE_SearchModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -309,10 +309,13 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\Exec_DBESearch_Entities.edmx">
+    <EntityDeploy Include="Models\Exec_DBE_SearchModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Exec_DBESearch_Entities.Designer.cs</LastGenOutput>
+      <LastGenOutput>Exec_DBE_SearchModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Models\Exec_DBE_SearchModel.edmx.diagram">
+      <DependentUpon>Exec_DBE_SearchModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.11.2.intellisense.js" />
     <Content Include="Scripts\dropdown.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
