@@ -10,9 +10,9 @@ namespace DBESearch.ViewModels
         [Display(Name = "Airport Concessionaire Disadvantaged Business Enterprise (ACDBE)")]
         public bool ACDBE { get; set; }
         [Display(Name = "Small Business Enterprise (SBE)")]
-        public bool SBP { get; set; }
+        public bool SBE { get; set; }
         [Display(Name = "Minority Business Enterprise (MBE)")]
-        public bool M { get; set; }
+        public bool MBE { get; set; }
         public List<string> CompanyDescriptions { get; set; }
         public string Company { get; set; }
         public int CompanyId { get; set; }
@@ -22,9 +22,9 @@ namespace DBESearch.ViewModels
         public string BusinessDescription { get; set; }
         [Display(Name = "Dept. Codes")]
         public List<string> DepartmentCodes { get; set; }
-        [Display(Name ="Owner First Name")]
+        [Display(Name ="First Name")]
         public string OwnerFirstName { get; set; }
-        [Display(Name="Owner Last Name")]
+        [Display(Name="Last Name")]
         public string OwnerLastName { get; set; }
         [Display(Name ="Zip Codes")]
         public List<string> OwnerZipCodes { get; set; }
@@ -35,8 +35,8 @@ namespace DBESearch.ViewModels
         [Display(Name = "Area Code")]
         public string AreaCode { get; set; }
         [Display(Name = "Item Code")]
-        public string ItemCode { get; set; }
-        [Display(Name = "NAICS Code")]
-        public string NAICS { get; set; }
+        public List<int> ItemCode { get; set; }
+        [Display(Name = "NAICS Codes")]
+        public List<string> NAICS { get; set; }
     }
 }

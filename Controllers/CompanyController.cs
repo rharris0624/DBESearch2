@@ -11,7 +11,7 @@ namespace DBESearch.Controllers
     public class CompanyController : Controller
     {
 
-        private Exec_DBE_DirectoryEntities1 db = new Exec_DBE_DirectoryEntities();
+        private DBESearchDirectoryEntities db = new DBESearchDirectoryEntities();
 
         // GET: Company
         public ActionResult Index()

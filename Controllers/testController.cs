@@ -14,7 +14,7 @@ namespace DBE.Controllers
     public class testController : Controller
     {
 
-        private Exec_DBE_DirectoryEntities1 db = new Exec_DBE_DirectoryEntities();
+        private DBESearchDirectoryEntities db = new DBESearchDirectoryEntities();
 
         public ActionResult company(int? companyid)
         {
@@ -79,12 +79,15 @@ namespace DBE.Controllers
             //build me a list of the NAICS codes for a given company and put the list in the object
             List<CompanyNAICSCodeDesc> NAICSList = new List<CompanyNAICSCodeDesc>();
 
-            var NAICSCodes = db.DBECompanies.Where(c => c.CompanyId == companyid).Select(p => new { NAICSCode = p.NAICSCodes }).ToList();
+            var NAICSCodes = db.DBECompanies.Join(db.CompanyNAICSCodes, a => a.CompanyId, b => b.Companyid, (a, b) => new { a, b })
+                .Join(db.NAICSCodes, c => c.b.NAICSCode, d => d.NAICSCode1, (c, d) => new { c, d })
+                .Where(e => e.c.a.CompanyId.Equals(companyid)).Select(p => new { NAICSCode = p.d }).ToList();
 
             var naicsquery = (from comp in db.DBECompanies
-                              from naics in comp.NAICSCodes.DefaultIfEmpty()
+                              join compNaics in db.CompanyNAICSCodes on comp.CompanyId equals compNaics.Companyid
+                              join naics in db.NAICSCodes on compNaics.NAICSCode equals naics.NAICSCode1
                               where comp.CompanyId == companyid
-                              select new { naics.DBECompanies, naics.NAICSCode1, naics.Description }).ToList();
+                              select new { comp.CompanyId, naics.NAICSCode1, naics.Description }).ToList();
 
             foreach (var x in naicsquery)
             {

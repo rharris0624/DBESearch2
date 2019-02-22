@@ -1,7 +1,7 @@
-﻿@model IEnumerable<DBESearch.Models.CompanyViewModels>
+﻿@model IEnumerable<DBESearch.ViewModels.CompanyViewModel>
 @using DBESearch.Models;
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
@@ -116,27 +116,27 @@
             </td>
             <td>
                 @if (item.DBE.HasValue && item.DBE.Value)
-                {<img src="~/context/images/tick.png" /> }
+                {<img src="~/content/tick.png" /> }
                 @*@Html.DisplayFor(modelItem => item.DBE)*@
             </td>
             <td>
                 @if (item.ACDBE.HasValue && item.ACDBE.Value)
-                {<img src="~/context/images/tick.png" /> }
+                {<img src="~/content/tick.png" /> }
                 @*@Html.DisplayFor(modelItem => item.ACDBE)*@
             </td>
             <td>
                 @if (item.SBP.HasValue && item.SBP.Value)
-                {<img src="~/context/images/tick.png" /> }
+                {<img src="~/content/tick.png" /> }
                 @*@Html.DisplayFor(modelItem => item.SBP)*@
             </td>
             <td>
                 @if (item.MBE.HasValue && item.MBE.Value)
-                {<img src="~/context/images/tick.png" /> }
+                {<img src="~/content/tick.png" /> }
                 @*@Html.DisplayFor(modelItem => item.MBE)*@
             </td>
             <td>
                 @if (item.Certified.HasValue && item.Certified.Value)
-                {<img src="~/context/images/tick.png" /> }
+                {<img src="~/content/tick.png" /> }
                 @*@Html.DisplayFor(modelItem => item.Certified)*@
             </td>
             <td>

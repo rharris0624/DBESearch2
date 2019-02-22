@@ -3,75 +3,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>DBE Directory</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/Content/themes/base")
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Content/global")
-    @Styles.Render("~/Content/themes/metro/jquery-dropdown")
-    @Styles.Render("~/Content/themes/base/jqueryui")
-    @Styles.Render("~/Content/css")
-    @Styles.Render("~/Styles/CommonCSS")
-    @RenderSection("styles", required: false)
-    <style>
-        a.approve-button {
-            background: url(@Url.Content("~/Content/tick.png")) 6px 4px no-repeat #f3f3f3;
-            padding-left: 30px;
-        }
 
-        a.reject-button {
-            background: url(@Url.Content("~/Content/delete_red.png")) 6px 5px no-repeat #f3f3f3;
-            padding-left: 30px;
-        }
-        a.save-button {
-            background: url(@Url.Content("~/Content/Save3.png")) 6px 4px no-repeat #f3f3f3 ;
-            width:50px;
-            padding-left: 30px;
-        }
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="ArDOT">
+    <title>Home &#45; DBE Administrator Page</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-        a.Edit-button {
-            background: url(@Url.Content("~/Content/edit.png")) 6px 4px no-repeat #f3f3f3 ;
-            width:40px;
-            padding-left: 30px;
-        }
-        .searchBar {
-            height: 22px;
-            background-image: url(@Url.Content("~/Content/Apps-Search-Log-icon.png");
-            background-size: 35px;
-            background-repeat: no-repeat;
-            background-position: left;
-            padding-left: 35px;
-            display: inline;
-            width: 450px !important;
-            font-size: 16px;
-            border: 2px solid gray;
-            background-position: -2px;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Roboto+Condensed:400" />
+
+    @Scripts.Render("~/bundles/jquery")
+    @Styles.Render("~/styles/bootstrap")
+    @Styles.Render("~/styles/FiscalUpdate")
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <link rel="shortcut icon" href="#" />
 </head>
+
 <body>
-    <div id="global-topbar-container">
-        <header>
-            <div>
-                @*<span id="global-topbar"><img src="@Url.Content("~/Images/ahtd_topimage.png")" /></span>*@
-            </div>
-        </header>
+    <div id="inc_nav1"></div>
+    <nav class="navbar navbar-fixed-top navbar-dark nav-bg-color shadow fixed-top">
+        <!-- <a class="navbar-brand" href="#">Fiscal Services</a> -->
+        <a class="navbar-brand" href="http://ardotnet/" target="_blank">
+            <img src="http://devweb/devFisicalServices/Latest-TopNav/img/ArDOT-Logo108x40.png" alt="logo" style="height: 22px; background-color: #EAEFF2;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="http://ardotnet/">Home</a>
+                </li>
+               
+              
+                                        <!-- <li class="nav-item">
+                                          <a class="nav-link" href="#"></a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#"></a>
+                                          </li> -->
+                                    </ul>
+                                </div>
+                                <!-- /.col-md-4  -->
+      
+    </nav>
+
+
+
+    <div class="jumbotron jumbotron-fluid page-header">
+        <div class="container">
+            <h1 class="title text-center">Company Search</h1>
+        </div>
     </div>
-    <section id="content">
-        @RenderBody()
-    </section>
-    <footer>
-        <p class="noprint">&copy; @DateTime.Now.Year ARDOT. All rights reserved.</p>
-    </footer>
-    @Scripts.Render("~/scripts/jquery")
-    @Scripts.Render("~/scripts/jquery-dropdown")
-    @Scripts.Render("~/scripts/jqueryui")
-    @Scripts.Render("~/scripts/Jqueryval")
-    @Scripts.Render("~/scripts/modernizr")
+    <div class="main main-raised shadow-lg">
+        <div class="container">
+            @RenderBody()
+        </div>
+    </div>
+
+
     @Scripts.Render("~/scripts/bootstrap")
-    @Scripts.Render("~/scripts/site")
     @RenderSection("scripts", required: false)
+    @Styles.Render("~/styles/updated")
+
 </body>
 </html>

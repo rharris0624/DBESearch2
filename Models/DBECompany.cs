@@ -18,7 +18,7 @@ namespace DBESearch.Models
         public DBECompany()
         {
             this.CompanyItemCodes = new HashSet<CompanyItemCode>();
-            this.NAICSCodes = new HashSet<NAICSCode>();
+            this.CompanyNAICSCodes = new HashSet<CompanyNAICSCode>();
         }
     
         public int CompanyId { get; set; }
@@ -48,6 +48,6 @@ namespace DBESearch.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompanyItemCode> CompanyItemCodes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NAICSCode> NAICSCodes { get; set; }
+        public virtual ICollection<CompanyNAICSCode> CompanyNAICSCodes { get; set; }
     }
 }

@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using DBESearch.Models;
 //using AHTD.Linq;
 using DBESearch.ViewModels;
-using DBESearch.Models;
 using System.Data;
 using System.Data.Entity;
 
@@ -14,7 +13,7 @@ namespace DBESearch.Controllers
 {
     public class DBECompanyController : Controller
     {
-        private Exec_DBE_DirectoryEntities1 db = new Exec_DBE_DirectoryEntities();
+        private DBESearchDirectoryEntities db = new DBESearchDirectoryEntities();
         // GET: DBECompany
         public ActionResult Index()
         {
@@ -24,17 +23,26 @@ namespace DBESearch.Controllers
             var states = db.DBECompanies.OrderBy(s => s.State).Select(s => s.State).Distinct();
             ViewBag.StateList = states.ToList();
 
+            var naicss = db.NAICSCodes.OrderBy(z => z.NAICSCode1).Select(s =>  s.NAICSCode1 + " - " + s.Description).Distinct();
+            ViewBag.NAICSList = naicss.ToList();
+
+            var itemcodes = db.ItemCodes.OrderBy(z => z.ItemCode1).Select(s => s.ItemCode1 + " - " + s.Description).Distinct();
+            ViewBag.ItemCodeList = itemcodes.ToList();
+
+            var cities = db.DBECompanies.OrderBy(z => z.City).Select(s => s.City).Distinct();
+            ViewBag.CityList = cities.ToList();
+
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Index(CompanySearchViewModel data)
+        [HttpGet]
+        public JsonResult GetBusinessDescription(String term)
         {
-            if(data != null)
-            {
-
-            }
-             return View("SearchResults");
+            var t = db.ItemCodes.Where(c => c.Description.Contains(term))
+                                    .Select(c => c.Description );
+            var u = db.NAICSCodes.Where(c => c.Description.Contains(term))
+                                    .Select(c => c.Description);
+            return Json(t.Union(u).Select(i => new { label = i, data = i }), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult companies(String term)
@@ -45,9 +53,9 @@ namespace DBESearch.Controllers
             return Json(t.Select(i => new { label = i.CompanyName, data = i }), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult lastName(String searchterm)
+        public JsonResult lastName(String term)
         {
-            object[] lastNames = db.DBECompanies.Where(c => c.OwnersLastName.ToUpper().Contains(searchterm.ToUpper())).Select(c => c.OwnersLastName).Distinct().ToArray();
+            object[] lastNames = db.DBECompanies.Where(c => c.OwnersLastName.ToUpper().Contains(term.ToUpper())).Select(c => c.OwnersLastName).Distinct().ToArray();
             return Json(lastNames, JsonRequestBehavior.AllowGet);
         }
 
@@ -74,29 +82,69 @@ namespace DBESearch.Controllers
         //public ActionResult SearchResults(Boolean DBE, Boolean ACDBE, Boolean SBE, Boolean MBE, String companylist, String BusinessDescription, String NAICS, String Item, String OwnersFirstName, String OwnersLastName, String City, String State, String Zip, String AreaCode, String County)
         public ActionResult SearchResults(CompanySearchViewModel searchData)
         {
+            int? CompanyId2 = 1;
+            int? ItemCode = 805;
+            CompanyItemCode stuff = db.CompanyItemCodes.Find(CompanyId2, ItemCode);
+            if (stuff != null )
+                Console.WriteLine("wooHoo!");
             IQueryable<DBECompany> searchquery = db.DBECompanies;
 
             if (searchData != null)
             {
-                //searchquery = searchquery.Where(s => s.DBE.Equals(searchData.DBE ? true : false));
-                //searchquery = searchquery.Where(s => s.ACDBE.Equals(searchData.ACDBE ? true : false));
-                //searchquery = searchquery.Where(s => s.MBE.Equals(searchData.M ? true : false));
-                //searchquery = searchquery.Where(s => s.SBP.Equals(searchData.M ? true : false));
+                if (!(searchData.DBE))
+                {
+                    searchquery = searchquery.Where(s => s.DBE != true);
+                }
+                if (!(searchData.ACDBE))
+                {
+                    searchquery = searchquery.Where(s => s.ACDBE != true);
+                }
+
+                if (!(searchData.MBE))
+                {
+                    searchquery = searchquery.Where(s => s.MBE != true);
+                }
+                if (!(searchData.SBE))
+                {
+                    searchquery = searchquery.Where(s => s.SBP != true);
+                }
+
                 if (!String.IsNullOrEmpty(searchData.Company))
                 {
                     searchquery = searchquery.Where(c => c.CompanyName.Contains(searchData.Company)).Select(c => c);
                 }
-                //if (!(BusinessDescription == null || BusinessDescription == ""))
-                //{
-                //searchquery = searchquery.Where(c => c. 
-                //}
+                if (!String.IsNullOrEmpty(searchData.BusinessDescription))
+                {
+                    IQueryable<DBECompany> dBECompanies = searchquery.Join(db.CompanyNAICSCodes, a => a.CompanyId, b => b.Companyid, (a, b) => new { a, b })
+                                            .Join(db.NAICSCodes, c => c.b.NAICSCode, d => d.NAICSCode1, (c, d) => new { c, d })
+                                            .Where(e => e.d.Description.Contains(searchData.BusinessDescription))
+                                            .Select(g => g.c.a);
+                    IQueryable<DBECompany> NAICSCompanies = searchquery.Join(db.CompanyItemCodes, a => a.CompanyId, b => b.CompanyID, (a, b) => new { a, b })
+                                           .Join(db.ItemCodes, c => c.b.ItemCode, d => d.ItemCode1, (c, d) => new { c, d })
+                                           .Where(e => e.d.Description.Contains(searchData.BusinessDescription))
+                                           .Select(g => g.c.a);
+                    searchquery = dBECompanies.Union(NAICSCompanies);
+                }
 
-                //if (!(String.IsNullOrEmpty(NAICS)))
-                //{
-                //var testNAICS = new[]{"234990","484110"};
-                //searchquery = searchquery.Include(z => z.CompanyItemCodes);
-                //searchquery = CompanyNAICSCodes.Where(c => c.NAICSCode == "237310").Select(p => new {p.DBECompany.CompanyName}).ToArray();
-                //}
+                if (searchData.NAICS != null && searchData.NAICS.Count > 0 && !String.IsNullOrEmpty(searchData.NAICS[0]))
+                {
+                    //var searchCodes = searchData.NAICS.Select(p => p.Substring(0, 6)).ToList();
+                    searchquery = from company in searchquery
+                                  join compNAICSCode in db.CompanyNAICSCodes on company.CompanyId equals compNAICSCode.Companyid
+                                  join searchCode in searchData.NAICS/*searchCodes*/ on compNAICSCode.NAICSCode equals searchCode
+                                  select company;
+                                  
+                }
+
+                if (searchData.ItemCode != null && searchData.ItemCode.Count > 0 && searchData.ItemCode[0] > 0)
+                {
+                    //var searchCodes = searchData.ItemCode.Select(p => p.Substring(0, 6)).ToList();
+                    searchquery = from company in searchquery
+                                  join compItemCodeCode in db.CompanyItemCodes on company.CompanyId equals compItemCodeCode.CompanyID
+                                  join searchCode in searchData.ItemCode/*searchCodes*/ on compItemCodeCode.ItemCode equals searchCode
+                                  select company;
+
+                }
 
                 if (!String.IsNullOrEmpty(searchData.OwnerFirstName))
                 {
@@ -106,25 +154,28 @@ namespace DBESearch.Controllers
                 {
                     searchquery = searchquery.Where(c => c.OwnersLastName.Contains(searchData.OwnerLastName)).Select(c => c);
                 }
-                //if (searchData.Cities != null && searchData.Cities.Count() > 0)
+                if (searchData.Cities != null && searchData.Cities.Count > 0 && !String.IsNullOrEmpty(searchData.Cities[0]))
+                {
+                    searchquery = searchquery.Join(searchData.Cities, a => a.City, b => b, (a, b) => a ).Select(c => c);
+                }
+                if (searchData.States != null && searchData.States.Count > 0 && !String.IsNullOrEmpty(searchData.States[0]))
+                {
+                    searchquery = searchquery.Join(searchData.States, a => a.State, b => b, (a, b) => a ).Select(c => c);
+                }
+                if (searchData.OwnerZipCodes != null && searchData.OwnerZipCodes.Count > 0 && !String.IsNullOrEmpty(searchData.OwnerZipCodes[0]))
+                {
+                    searchquery = searchquery.Join(searchData.OwnerZipCodes, a => a.Zip, b => b, (a, b) => a).Select(c => c);
+                }
+                if (!string.IsNullOrEmpty(searchData.AreaCode))
+                {
+                    searchquery = searchquery.Where(c => c.Phone.StartsWith(searchData.AreaCode)); //Area Code is not split out in DB Need to string length check first????
+                }
+
+
+
+                //if (!(string.IsNullOrEmpty(County))) //currently, county does not exist in the database
                 //{
-                //    searchquery = searchquery.Join(searchData.Cities, a => a.City, b => b, (a, b) => new { a }).Select( c => c.a );
-                //}
-                //if (searchData.States != null && searchData.States.Count() > 0)
-                //{
-                //    searchquery = searchquery.Join(searchData.States, a => a.State, b => b, (a, b) => new { a }).Select(c => c.a);
-                //}
-                //if (searchData.OwnerZipCodes != null && searchData.OwnerZipCodes.Count() > 0)
-                //{
-                //    searchquery = searchquery.Join(searchData.OwnerZipCodes, a => a.Zip, b => b, (a, b) => new { a }).Select(c => c.a);
-                //}
-                //if (!string.IsNullOrEmpty(searchData.AreaCode))
-                //{
-                //    searchquery = searchquery.Where(c => c.Phone.StartsWith(searchData.AreaCode)); //Area Code is not split out in DB Need to string length check first????
-                //}
-                //if(!(string.IsNullOrEmpty(County))) //currently, county does not exist in the database
-                //{
-                //
+
                 //}
 
                 //done with the querybuilding
@@ -144,7 +195,7 @@ namespace DBESearch.Controllers
         {
             //object[] cities = db.DBECompanies.Where(c => c.City.ToUpper().Contains(term.ToUpper())).Select(c => c.City).Distinct().ToArray();
             var t = db.DBECompanies.Where(c => c.City.Contains(term)).Select(c => new { c.City }).Distinct();
-            return Json(t.Select(i => new { label = i.City, data = i.City }), JsonRequestBehavior.AllowGet);
+            return Json(t.Select(i => new { label = i.City, data = i }), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult DisplayAll()
@@ -204,7 +255,7 @@ namespace DBESearch.Controllers
             }
 
             //build me a list of the Departmental item codes for a given company and put the list in the object
-            var codes = db.CompanyItemCodes.Where(c => c.CompanyID == id).Include("ItemCodes").ToList();
+            var codes = db.CompanyItemCodes.Where(c => c.CompanyID == id).Include("ItemCode1").ToList();
 
             List<CompanyItemCodeDesc> codelist = new List<CompanyItemCodeDesc>();
 
@@ -222,12 +273,15 @@ namespace DBESearch.Controllers
             //build me a list of the NAICS codes for a given company and put the list in the object
             List<CompanyNAICSCodeDesc> NAICSList = new List<CompanyNAICSCodeDesc>();
 
-            var NAICSCodes = db.DBECompanies.Where(c => c.CompanyId == id).Select(p => new { NAICSCode = p.NAICSCodes }).ToList();
+            //var NAICSCodes = db.DBECompanies.Join(db.CompanyNAICSCodes, a => a.CompanyId, b => b.Companyid, (a, b) => new { a, b })
+            //    .Join(db.NAICSCodes, c => c.b.NAICSCode, d => d.NAICSCode1, (c, d) => new {c, d })
+            //    .Where(e => e.c.a.CompanyId.Equals(id)).Select(p => new { NAICSCode = p.d.NAICSCode1 }).ToList();
 
             var naicsquery = (from comp in db.DBECompanies
-                              from naics in comp.NAICSCodes.DefaultIfEmpty()
+                              join compNaics in db.CompanyNAICSCodes on comp.CompanyId equals compNaics.Companyid
+                              join naics in db.NAICSCodes on compNaics.NAICSCode equals naics.NAICSCode1
                               where comp.CompanyId == id
-                              select new { naics.DBECompanies, naics.NAICSCode1, naics.Description }).ToList();
+                              select new { comp.CompanyId, naics.NAICSCode1, naics.Description }).ToList();
 
             foreach (var x in naicsquery)
             {

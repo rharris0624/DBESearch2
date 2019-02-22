@@ -11,7 +11,7 @@ namespace DBESearch.Controllers
 {
     public class ItemCodesController : Controller
     {
-        private Exec_DBE_DirectoryEntities1 db = new Exec_DBE_DirectoryEntities1();
+        private DBESearchDirectoryEntities db = new DBESearchDirectoryEntities();
         // GET: ItemCodes
         public ActionResult Index()
         {

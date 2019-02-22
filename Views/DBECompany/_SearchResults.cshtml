@@ -3,27 +3,27 @@
 @using DBESearch.Models;
 
 <style>
-    table {
+    table[class='resultsGrid'] {
         border: 1px solid black;
         background-color: white;
         border-collapse: collapse;
         width: 75%;
     }
 
-    th, td {
+    th, td[class='resultsGrid'] {
         text-align: left;
         padding: 8px;
     }
 
-    th {
-        height: 50px;
-    }
+        th[class='resultsGrid'] {
+            height: 50px;
+        }
 
-    tr:nth-child(even) {
+    tr:nth-child(even)[class='resultsGrid'] {
         background-color: #f2f2f2
     }
 
-    tr:hover {
+    tr:hover[class='resultsGrid']{
         background-color: #d1d1d1;
         cursor: pointer;
     }
@@ -33,11 +33,16 @@
 &nbsp;
 &nbsp;
 &nbsp;
-<table id="SearchResults" style="margin: 0px auto;">
-    <tr><td>Company</td><td>City</td></tr>
+<table id="SearchResults" style="margin: 0px auto;" class="resultsGrid">
+    <tr  class="resultsGrid">
+        <th class="resultsGrid">Company</th>
+        <th class="resultsGrid">Address</th>
+        <th>Phone Number</th>
+        <th>Detail</th>
+    </tr>
     @foreach (var company in Model)
     {
-        <tr>
+        <tr class="resultsGrid">
             <td id="companyid" style="display:none;">@company.CompanyId</td>
             <td>@company.CompanyName</td>
             <td>@company.CompanyAddress , @company.City, @company.State @company.Zip</td>
